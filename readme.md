@@ -16,6 +16,8 @@ The system automatically:
 - stores historical failures
 - exports reports to Excel
 
+---
+
 <p align="center">
   <img src="./docs/is_this_ai.png" width="500"/>
 </p>
