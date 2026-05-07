@@ -14,6 +14,8 @@ import { HistoryService } from "../analytics/HistoryService";
 
 import { prisma } from "../database/prisma";
 
+import { allure } from "allure-playwright";
+
 const ai = new OpenAIProvider();
 
 const fingerprintService = new FingerprintService();
@@ -57,7 +59,6 @@ test.afterEach(async ({ page }, testInfo) => {
         consoleLogs: consoleCollector.getLogs(),
 
         failedRequests: networkCollector.getFailed(),
-        
       },
 
       history,
@@ -80,5 +81,23 @@ test.afterEach(async ({ page }, testInfo) => {
         fingerprint,
       },
     });
+
+    allure.attachment(
+      "AI Root Cause Analysis",
+
+      analysis,
+
+      "text/plain",
+    );
+
+    allure.attachment(
+      "Historical Failures",
+
+      JSON.stringify(history, null, 2),
+
+      "application/json",
+    );
+
+    allure.label("fingerprint", fingerprint);
   }
 });
