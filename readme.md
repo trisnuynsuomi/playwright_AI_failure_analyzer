@@ -17,7 +17,7 @@ The system automatically:
 - exports reports to Excel
 
 <p align="center">
-  <img src="./docs/is-this-ai.png" width="500"/>
+  <img src="./docs/is_this_ai.png" width="500"/>
 </p>
 
 ---
