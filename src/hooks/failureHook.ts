@@ -37,6 +37,12 @@ test.beforeEach(async ({ page }, testInfo) => {
 
 test.afterEach(async ({ page }, testInfo) => {
   if (testInfo.status !== testInfo.expectedStatus) {
+    const isFinalRetry = testInfo.retry === testInfo.project.retries;
+
+    if (testInfo.status !== "failed" || !isFinalRetry) {
+      return;
+    }
+
     const consoleCollector = (testInfo as any).consoleCollector;
 
     const networkCollector = (testInfo as any).networkCollector;
