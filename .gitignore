@@ -1,0 +1,25 @@
+# Node
+node_modules/
+
+# Environment
+.env
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+playwright/.auth/
+
+# Prisma generated client
+generated/prisma/
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

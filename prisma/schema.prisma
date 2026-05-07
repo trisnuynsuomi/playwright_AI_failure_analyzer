@@ -1,0 +1,25 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model FailureRecord {
+
+  id             Int      @id @default(autoincrement())
+
+  testTitle      String
+
+  errorMessage   String
+
+  aiSummary      String
+
+  fingerprint    String
+
+  flakyScore     Float?
+
+  timestamp      DateTime @default(now())
+}
