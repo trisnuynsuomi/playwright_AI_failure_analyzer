@@ -123,7 +123,7 @@ npm run allure
 ## Export latest run to Google Sheets
 
 ```bash
-npm run report:sheet -- --sheetName=test-sheet
+npm run report:sheet -- --sheetName={input-your-sheet-name-here}
 ```
 
 ---
@@ -142,10 +142,14 @@ Playwright timed out waiting for the locator.
 
 # Example Report
 
+## Allure Report
+
 <p align="center">
   <img src="./docs/allure-demo.png"/>
 </p>
 
+
+## Google Sheet Report
 <p align="center">
   <img src="./docs/google-sheet-demo.png"/>
 </p>
