@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test:unit": "vitest",
+    "test:unit:watch": "vitest --watch"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -13,7 +16,8 @@
     "allure-playwright": "^3.7.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
