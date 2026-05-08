@@ -2,6 +2,9 @@
 
 AI-assisted failure analysis tool for Playwright tests.
 
+
+## Summary
+
 When a test fails, the system automatically:
 - collects logs, traces, and screenshots
 - sanitizes sensitive data
@@ -9,6 +12,21 @@ When a test fails, the system automatically:
 - tracks recurring issues
 - generates Allure reports
 - exports failure history to Google Sheets
+
+
+## How It Works
+
+This tool acts as an intelligent bridge between Playwright's test execution and Large Language Models (LLMs) to transform cryptic logs into actionable insights.
+
+1.  **Failure Interception:** The analyzer hooks into the Playwright Test Runner. When a test fails, it immediately captures raw data, including:
+    * `Error Message`: The specific failure reason.
+    * `Stack Trace`: The exact line where the crash occurred.
+    * `Code Snippet`: The surrounding code context of the failure point.
+2.  **Context Optimization:** The captured data is cleaned and sanitized to remove noise, ensuring only relevant information is sent to the AI. This saves tokens and improves accuracy.
+3.  **AI Analysis:** The processed data is sent to an LLM (OpenAI or a Local LLM) using specialized prompt engineering designed specifically for debugging automation scripts.
+4.  **Actionable Insights:** The AI returns a structured report featuring:
+    * **Root Cause**: An explanation of the failure in plain English (e.g., "The button is covered by a cookie consent banner").
+    * **Suggested Fix**: A specific code snippet or strategy to resolve the issue.
 
 ---
 
@@ -157,12 +175,35 @@ Playwright timed out waiting for the locator.
 
 ---
 
-# Security Notes
+## Security & Privacy Considerations
 
-- Sensitive data is sanitized before AI analysis
-- `.env`, reports, and local databases are ignored
-- AI analysis only runs after the final failed retry
+**⚠️ IMPORTANT DATA NOTE:**
 
+By default, if you use the OpenAI API, logs, DOM structures, and parts of your test code will be sent to a third-party server. For enterprise projects or those handling sensitive data, I **strongly recommend** switching to a **Local LLM**.
+
+### Why use a Local LLM?
+* **Total Privacy:** Your data never leaves your local machine or internal infrastructure.
+* **Zero Cost:** No monthly API fees or per-token charges.
+* **Reliability:** No dependency on internet connectivity or API rate limits.
+
+> **Note from the Author:** Due to my current hardware limitations (low-spec PC), I haven't been able to run or demo this with a Local LLM personally. However, the architecture is fully compatible. You can simply point the `BASE_URL` to tools like **Ollama**, **LM Studio**, or **LocalAI** to keep your data 100% private.
+
+---
+
+## ⚙️ Configuration
+
+Easily switch between OpenAI and Local LLMs by adjusting your environment variables:
+
+```bash
+# OpenAI Configuration (Default - Use with caution for sensitive data)
+AI_PROVIDER=openai
+OPENAI_API_KEY=sk-xxxx...
+
+# Local LLM Configuration (Recommended for Privacy - e.g., via Ollama)
+# AI_PROVIDER=local
+# BASE_URL=http://localhost:11434/v1
+# MODEL_NAME=llama3  # or codellama, etc.
+```
 ---
 
 # Future Improvements
@@ -173,3 +214,4 @@ Playwright timed out waiting for the locator.
 - GitHub Actions / Jenkins pipeline
 - Dashboard UI
 - Screenshot vision analysis
+---
