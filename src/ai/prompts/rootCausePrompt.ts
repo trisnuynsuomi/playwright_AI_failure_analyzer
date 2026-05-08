@@ -2,6 +2,7 @@ import { FailureContext } from "../../types/FailureContext";
 
 export function buildRootCausePrompt(context: FailureContext, history: any[]) {
   return `
+    You are an expert Test Automation Engineer and Business Analyst.
     Analyze this Playwright failure.
     
     CURRENT FAILURE
