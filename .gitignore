@@ -27,8 +27,7 @@ generated/prisma/
 # Allure
 allure-results/
 
-# Local database
-dev.db
-dev.db-journal
-*.db
-*.db-journal
+# SQLite
+prisma/dev.db
+prisma/*.db
+prisma/*.db-journal
