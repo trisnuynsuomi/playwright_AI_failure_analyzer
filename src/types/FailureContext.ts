@@ -9,4 +9,5 @@ export interface FailureContext {
     consoleLogs: string[];
   
     failedRequests: string[];
-  }
+
+}

@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test:unit": "vitest",
-    "test:unit:watch": "vitest --watch"
+    "test:unit:watch": "vitest --watch",
+    "report:sheet": "tsx src/exporters/export.ts",
+    "allure": "allure serve allure-results",
+    "test": "playwright test"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +26,7 @@
     "@prisma/client": "^6.19.3",
     "allure-js-commons": "^3.7.2",
     "dotenv": "^17.4.2",
-    "exceljs": "^4.4.0",
+    "googleapis": "^171.4.0",
     "openai": "^6.37.0",
     "prisma": "^6.19.3",
     "sqlite3": "^6.0.1"

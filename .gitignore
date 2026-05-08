@@ -31,3 +31,7 @@ allure-results/
 prisma/dev.db
 prisma/*.db
 prisma/*.db-journal
+
+# Generated reports
+failure-report.xlsx
+*.xlsx

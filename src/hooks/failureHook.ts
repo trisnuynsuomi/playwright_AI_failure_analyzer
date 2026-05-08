@@ -16,6 +16,8 @@ import { prisma } from "../database/prisma";
 
 import { allure } from "allure-playwright";
 
+import { RUN_ID } from "../utils/runId";
+
 const ai = new OpenAIProvider();
 
 const fingerprintService = new FingerprintService();
@@ -36,6 +38,7 @@ test.beforeEach(async ({ page }, testInfo) => {
 });
 
 test.afterEach(async ({ page }, testInfo) => {
+  testInfo.setTimeout(60_000);
   if (testInfo.status !== testInfo.expectedStatus) {
     const isFinalRetry = testInfo.retry === testInfo.project.retries;
 
@@ -76,6 +79,8 @@ test.afterEach(async ({ page }, testInfo) => {
 
     console.log(analysis);
 
+    console.log("RUN_ID:", RUN_ID);
+
     await prisma.failureRecord.create({
       data: {
         testTitle: testInfo.title,
@@ -85,6 +90,10 @@ test.afterEach(async ({ page }, testInfo) => {
         aiSummary: analysis,
 
         fingerprint,
+
+        runId: RUN_ID,
+
+        timestamp: new Date(),
       },
     });
 

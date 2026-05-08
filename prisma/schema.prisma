@@ -8,18 +8,12 @@ generator client {
 }
 
 model FailureRecord {
-
-  id             Int      @id @default(autoincrement())
-
-  testTitle      String
-
-  errorMessage   String
-
-  aiSummary      String
-
-  fingerprint    String
-
-  flakyScore     Float?
-
-  timestamp      DateTime @default(now())
+  id           Int      @id @default(autoincrement())
+  testTitle    String
+  errorMessage String
+  aiSummary    String
+  fingerprint  String
+  flakyScore   Float?
+  runId        String?
+  timestamp    DateTime @default(now())
 }
