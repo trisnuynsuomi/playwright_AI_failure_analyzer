@@ -26,3 +26,9 @@ generated/prisma/
 
 # Allure
 allure-results/
+
+# Local database
+dev.db
+dev.db-journal
+*.db
+*.db-journal
