@@ -10,4 +10,8 @@ export interface FailureContext {
   
     failedRequests: string[];
 
+    codeSnippet: string;
+
+    htmlSnapshot: string;
+
 }

@@ -15,6 +15,10 @@ describe("Prompt Builder", () => {
         consoleLogs: [],
 
         failedRequests: [],
+
+        codeSnippet: "",
+
+        htmlSnapshot: "",
       },
 
       [1, 2],
@@ -35,9 +39,14 @@ describe("Prompt Builder", () => {
         consoleLogs: [],
 
         failedRequests: [],
+
+        codeSnippet: "",
+
+        htmlSnapshot: "",
       },
 
       [],
     );
+    expect(prompt).toContain("");
   });
 });

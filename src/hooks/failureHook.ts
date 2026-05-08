@@ -16,7 +16,12 @@ import { prisma } from "../database/prisma";
 
 import { allure } from "allure-playwright";
 
-import { RUN_ID } from "../utils/runId";
+import {
+    RUN_ID
+  }
+  from '../utils/runId';
+import { collectCodeSnippet } from "../collectors/CodeSnippetCollector";
+import { collectSanitizedHtmlSnapshot } from "../collectors/HtmlSnapshotCollector";
 
 const ai = new OpenAIProvider();
 
@@ -40,7 +45,8 @@ test.beforeEach(async ({ page }, testInfo) => {
 test.afterEach(async ({ page }, testInfo) => {
   testInfo.setTimeout(60_000);
   if (testInfo.status !== testInfo.expectedStatus) {
-    const isFinalRetry = testInfo.retry === testInfo.project.retries;
+    const isFinalRetry =
+  testInfo.retry === testInfo.project.retries;;
 
     if (testInfo.status !== "failed" || !isFinalRetry) {
       return;
@@ -50,12 +56,16 @@ test.afterEach(async ({ page }, testInfo) => {
 
     const networkCollector = (testInfo as any).networkCollector;
 
+    const codeSnippet = await collectCodeSnippet(testInfo.error?.stack)
+
+    const htmlSnapshot = await collectSanitizedHtmlSnapshot(page);
+
     const fingerprint = fingerprintService.generate(
       testInfo.title,
       testInfo.error?.message || "",
     );
 
-    const history = await historyService.findByFingerprint(fingerprint);
+    const history = await HistoryService.findByFingerprint(fingerprint);
 
     const prompt = buildRootCausePrompt(
       {
@@ -68,6 +78,10 @@ test.afterEach(async ({ page }, testInfo) => {
         consoleLogs: consoleCollector.getLogs(),
 
         failedRequests: networkCollector.getFailed(),
+
+        codeSnippet: codeSnippet?.snippet || "",
+
+        htmlSnapshot: htmlSnapshot || "",
       },
 
       history,
@@ -79,7 +93,7 @@ test.afterEach(async ({ page }, testInfo) => {
 
     console.log(analysis);
 
-    console.log("RUN_ID:", RUN_ID);
+    console.log('RUN_ID:', RUN_ID);
 
     await prisma.failureRecord.create({
       data: {

@@ -21,6 +21,12 @@ export function buildRootCausePrompt(context: FailureContext, history: any[]) {
     
     Recent Failed Requests:
     ${context.failedRequests.slice(-10).join("\n")}
+
+    Code snippet around failure:
+    ${context.codeSnippet ?? "N/A"}
+
+    Sanitized HTML snapshot:
+    ${context.htmlSnapshot ?? "N/A"}
     
     HISTORICAL FAILURE COUNT
     ===============
